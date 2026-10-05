@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{titel}}</title>
+<meta name="description" content="{{beschreibung}}">
+{{robots}}
+<!-- Automatisch erzeugt mit bauen.py am {{stand}}. Nicht von Hand ändern: Texte in inhalte/, Zahlen in daten/, Gestaltung in vorlage/. -->
+<style>
+{{stil}}
+</style>
+</head>
+<body>
+<a class="sprung" href="#inhalt">Zum Inhalt</a>
+{{entwurf_band}}
+<header class="kopf">
+  <div class="leiste">
+    <span class="leiste-name">{{logo}}{{ueberzeile}}</span>
+    <span class="leiste-rechts">
+      <span>Stand {{stand}}</span>
+      <button type="button" class="thema" id="thema">Dunkel</button>
+    </span>
+  </div>
+  <div class="kopf-innen">
+    <div class="kopf-text">
+      <h1>{{titel}}</h1>
+      <p class="untertitel">{{untertitel}}</p>
+      <p class="meta">{{herausgeber}}</p>
+    </div>
+  </div>
+</header>
+<div class="rahmen">
+  <nav class="kapitelnav" aria-label="Kapitel">
+    <p class="kapitelnav-titel">Inhalt</p>
+    <ul>
+{{nav}}
+    </ul>
+  </nav>
+  <main id="inhalt">
+    <div class="steuerung"><button type="button" class="alle" id="alle">Alle aufklappen</button></div>
+{{kapitel}}
+  </main>
+</div>
+<footer class="fuss">
+  <div class="fuss-innen">
+    <span>{{herausgeber}}</span>
+    <span>Stand {{stand}}</span>
+  </div>
+</footer>
+<script>
+{{skript}}
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Einstellungen der Website. Eine Angabe pro Zeile, Form «name: wert».
+titel: Rechenzentren im Metropolitanraum Zürich
+untertitel: Die wichtigsten Erkenntnisse zu Akteuren, Standorten, Trends und künftigem Bedarf
+ueberzeile: Studie Versorgungsfunktionen
+herausgeber: KEEAS AG im Auftrag des Vereins Metropolitanraum Zürich
+beschreibung: Erkenntnisse zu Rechenzentren im Metropolitanraum Zürich: Akteure, Typen, Standortfaktoren, Vergleich Europa und Welt, Trends und künftiger Bedarf.
+
+# «entwurf: ja» zeigt Status, Notizen «Offen» und den Entwurf-Hinweis.
+# Vor der Veröffentlichung auf «nein» stellen.
+entwurf: ja

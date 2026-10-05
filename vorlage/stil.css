@@ -1,0 +1,167 @@
+/* Layout: schlicht und ruhig. Oben eine schmale Leiste, darunter ein grosser, fetter Titel mit viel
+   Raum. Links das Inhaltsverzeichnis, rechts die Kapitel als Liste mit Haarlinien; ein Klick klappt
+   ein Kapitel auf oder zu. Keine Flächen und keine Dekoration, nur Schrift, Linien und Weissraum. */
+:root {
+  /* KEEAS-Farben aus «KEEAS Farben.thmx» */
+  --k-nacht: #00262E;   /* Dunkel 2: Dunkelblau-Grün */
+  --k-teal: #007985;    /* Akzent 2 */
+  --k-eis: #9EE1EB;     /* Akzent 6 */
+  --k-orange: #FAAC14;  /* Akzent 4 */
+
+  /* Hell: Dunkelblau-Grün auf Weiss */
+  --grund: #FFFFFF;
+  --text: var(--k-nacht);
+  --text-leise: #5A6E73;
+  --linie: #D6DDDE;
+  --akzent: var(--k-teal);
+  --hinweis: var(--k-orange);
+
+  --schrift-titel: "Inter Display", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --schrift-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --rahmen: 80rem;
+  --spalte: 52rem;
+  color-scheme: light;
+}
+/* Dunkel: Weiss auf Dunkelblau-Grün */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --grund: var(--k-nacht); --text: #FFFFFF; --text-leise: #9DB6BA; --linie: #2A4A51; --akzent: var(--k-eis);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --grund: var(--k-nacht); --text: #FFFFFF; --text-leise: #9DB6BA; --linie: #2A4A51; --akzent: var(--k-eis);
+  color-scheme: dark;
+}
+
+/* Grundlagen */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; background: var(--grund); color: var(--text); font-family: var(--schrift-text); font-size: 1.0625rem; line-height: 1.6; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--schrift-titel); font-weight: 700; text-wrap: balance; }
+p, ul, ol { margin: 0; }
+strong { font-weight: 600; }
+img { max-width: 100%; height: auto; }
+a { color: var(--akzent); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 1.5px solid var(--akzent); outline-offset: 4px; }
+.sprung { position: absolute; left: 1rem; top: -3rem; background: var(--grund); color: var(--text); padding: .5rem .75rem; border: 1px solid var(--linie); z-index: 10; }
+.sprung:focus { top: 1rem; }
+
+/* Entwurf-Hinweis */
+.entwurf-band { padding: .5rem 1.25rem; border-bottom: 1px solid var(--linie); font-size: .78rem; color: var(--text-leise); text-align: center; }
+.entwurf-band::before { content: ""; display: inline-block; width: .45rem; height: .45rem; margin-right: .5rem; border-radius: 50%; background: var(--hinweis); vertical-align: .05em; }
+
+/* Kopf */
+.leiste, .kopf-innen, .rahmen, .fuss-innen { max-width: var(--rahmen); margin-inline: auto; padding-inline: 1.5rem; }
+.leiste { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 1.25rem; font-size: .85rem; }
+.leiste-name { display: inline-flex; align-items: center; gap: .75rem; font-weight: 600; }
+.leiste-rechts { display: inline-flex; align-items: center; gap: 1.5rem; color: var(--text-leise); }
+.logo { height: 1.5rem; width: auto; }
+.thema { background: transparent; border: 1px solid var(--linie); border-radius: 999px; padding: .2rem .8rem; cursor: pointer; color: var(--text); }
+.thema:hover { border-color: var(--text); }
+.kopf-innen { padding-block: 8rem 7rem; }
+.kopf h1 { font-size: clamp(2.25rem, 1rem + 5.4vw, 6.25rem); line-height: 1; letter-spacing: -0.04em; max-width: 14ch; overflow-wrap: break-word; }
+.untertitel { margin-top: 2.25rem; font-size: 1.25rem; line-height: 1.5; color: var(--text-leise); max-width: 40ch; }
+.meta { margin-top: .75rem; font-size: .85rem; color: var(--text-leise); }
+
+/* Rahmen */
+.rahmen { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 6rem; padding-block: 0 8rem; }
+main { min-width: 0; max-width: var(--spalte); }
+
+/* Inhaltsverzeichnis */
+.kapitelnav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 2rem); align-self: start; padding-top: 2.6rem; }
+.kapitelnav-titel { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-leise); padding-bottom: .9rem; }
+.kapitelnav ul { list-style: none; padding: 0; display: grid; gap: .15rem; }
+.kapitelnav a { display: flex; align-items: center; gap: .75rem; padding: .3rem 0; color: var(--text-leise); text-decoration: none; font-size: .9rem; }
+.kapitelnav .nr { width: 1.4rem; flex: none; font-size: .75rem; font-variant-numeric: tabular-nums; }
+.kapitelnav a:hover, .kapitelnav a.aktiv { color: var(--text); }
+.kapitelnav a.aktiv .name { font-weight: 600; }
+/* Status im Verzeichnis nur als Punkt */
+.kapitelnav .status { font-size: 0; border: 0; padding: 0; gap: 0; }
+
+/* Steuerung */
+.steuerung { display: flex; justify-content: flex-end; padding-bottom: 1rem; }
+.alle { background: none; border: 0; padding: .2rem 0; cursor: pointer; font-size: .85rem; color: var(--text-leise); }
+.alle:hover { color: var(--text); }
+
+/* Kapitel als aufklappbare Liste */
+.kapitel { border-top: 1px solid var(--linie); scroll-margin-top: 1.5rem; }
+.kapitel:last-of-type { border-bottom: 1px solid var(--linie); }
+.kapitel-kopf { list-style: none; cursor: pointer; display: grid; grid-template-columns: 2.75rem minmax(0, 1fr) auto 1.25rem; align-items: center; gap: 1.25rem; padding-block: 2.1rem; }
+.kapitel-kopf::-webkit-details-marker { display: none; }
+.kapitel-kopf .nr { font-size: .8rem; color: var(--text-leise); font-variant-numeric: tabular-nums; }
+.kapitel-kopf h2 { font-size: clamp(1.6rem, 1.05rem + 1.9vw, 2.8rem); letter-spacing: -0.03em; line-height: 1.1; }
+.zeichen { position: relative; width: 1.25rem; height: 1.25rem; }
+.zeichen::before, .zeichen::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; transition: transform .25s; }
+.zeichen::after { transform: rotate(90deg); }
+.kapitel[open] .zeichen::after { transform: rotate(0deg); }
+.kapitel-inhalt { display: grid; gap: 1.25rem; padding: 0 0 4.5rem 4rem; }
+.kapitel-inhalt h3 { font-size: 1.4rem; letter-spacing: -0.02em; line-height: 1.2; margin-top: 1.75rem; }
+.kapitel-inhalt h4 { font-size: 1.1rem; letter-spacing: -0.01em; margin-top: 1rem; }
+.kapitel-inhalt p, .kapitel-inhalt li { max-width: 66ch; }
+.kapitel-inhalt ul, .kapitel-inhalt ol { padding-left: 1.2rem; display: grid; gap: .3rem; }
+@media (prefers-reduced-motion: reduce) { .zeichen::before, .zeichen::after { transition: none; } }
+/* Sanftes Auf- und Zuklappen, wo der Browser es kann */
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root { interpolate-size: allow-keywords; }
+    .kapitel::details-content { height: 0; overflow: clip; transition: height .35s ease, content-visibility .35s allow-discrete; }
+    .kapitel[open]::details-content { height: auto; }
+  }
+}
+
+/* Status als feine Pille (nur im Entwurf) */
+.status { display: inline-flex; align-items: center; gap: .4rem; padding: .15rem .6rem; border: 1px solid var(--linie); border-radius: 999px; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-leise); white-space: nowrap; line-height: 1.5; }
+.status::before { content: ""; flex: none; width: .42rem; height: .42rem; border-radius: 50%; border: 1px solid currentColor; }
+.status-entwurf::before { background: var(--hinweis); border-color: var(--hinweis); }
+.status-fertig::before { background: var(--akzent); border-color: var(--akzent); }
+
+/* Quellenangabe unter einem Absatz */
+.quelle { display: block; margin-top: .35rem; font-size: .78rem; line-height: 1.45; color: var(--text-leise); }
+
+/* Boxen aus dem Markdown */
+.marke { display: block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .35rem; color: var(--text-leise); }
+.offen { border-left: 2px solid var(--hinweis); padding: .15rem 0 .15rem 1rem; font-size: .95rem; color: var(--text-leise); }
+.offen .marke { color: var(--text); }
+.grafik-platzhalter { margin: .75rem 0; min-height: 15rem; display: grid; place-content: center; gap: .25rem; padding: 2rem; border: 1px solid var(--linie); text-align: center; color: var(--text-leise); font-size: .95rem; }
+.grafik-platzhalter p { max-width: 42ch; margin-inline: auto; }
+
+/* Kennzahlen */
+.kacheln { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 2.25rem 2rem; margin-block: 1.25rem; }
+.kachel { border-top: 1px solid var(--text); padding-top: 1.1rem; display: grid; gap: .55rem; align-content: start; }
+.kachel.ist-offen { border-top: 1px dashed var(--linie); color: var(--text-leise); }
+.kachel-wert { font-family: var(--schrift-titel); font-weight: 700; font-size: 2.9rem; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.kachel-einheit { font-family: var(--schrift-text); font-weight: 400; font-size: 1rem; letter-spacing: 0; color: var(--text-leise); margin-left: .35rem; }
+.kachel-text { font-size: .88rem; line-height: 1.45; }
+.kachel-quelle { font-size: .72rem; line-height: 1.4; color: var(--text-leise); }
+.kachel .status { justify-self: start; }
+
+/* Tabellen */
+.tabelle { overflow-x: auto; }
+.tabelle table { border-collapse: collapse; width: 100%; font-size: .93rem; font-variant-numeric: tabular-nums; }
+.tabelle th, .tabelle td { text-align: left; padding: .65rem .75rem .65rem 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+.tabelle th { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-leise); font-weight: 400; }
+
+/* Fuss */
+.fuss { border-top: 1px solid var(--linie); }
+.fuss-innen { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.5rem; padding-block: 1.5rem 2.5rem; font-size: .82rem; color: var(--text-leise); }
+
+/* Schmale Fenster und Handy: Verzeichnis ist die Kapitelliste selbst */
+@media (max-width: 60rem) {
+  .rahmen { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .kapitelnav { display: none; }
+  .kopf-innen { padding-block: 5rem 4.5rem; }
+}
+@media (max-width: 40rem) {
+  .leiste, .kopf-innen, .rahmen, .fuss-innen { padding-inline: 1.25rem; }
+  .leiste-rechts > span { display: none; }
+  .kopf-innen { padding-block: 3.5rem 3.5rem; }
+  .untertitel { margin-top: 1.5rem; font-size: 1.1rem; }
+  .kapitel-kopf { grid-template-columns: 1.75rem minmax(0, 1fr) 1.1rem; gap: .35rem .75rem; padding-block: 1.5rem; }
+  .kapitel-kopf .status { grid-column: 2; grid-row: 2; justify-self: start; }
+  .kapitel-kopf .zeichen { grid-column: 3; grid-row: 1; width: 1.1rem; height: 1.1rem; }
+  .kapitel-inhalt { padding: 0 0 3rem 0; }
+}

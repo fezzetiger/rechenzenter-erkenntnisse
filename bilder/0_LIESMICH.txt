@@ -1,0 +1,1 @@
+Logo hier ablegen als logo.svg oder logo.png. bauen.py baut es automatisch in die Seite ein.

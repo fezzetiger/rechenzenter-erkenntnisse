@@ -1,0 +1,4 @@
+Schrift: Inter 4.001 (Inter und Inter Display), Copyright 2016 The Inter Project Authors.
+Lizenz: SIL Open Font License, Version 1.1 (https://openfontlicense.org).
+Diese Dateien sind Teilmengen (nur lateinische Zeichen) der Originalschrift, als WOFF2 für die Website.
+Quelle der Originalschrift: https://rsms.me/inter/
