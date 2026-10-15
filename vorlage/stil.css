@@ -15,6 +15,10 @@
   --linie: #D6DDDE;
   --akzent: var(--k-teal);
   --hinweis: var(--k-orange);
+  --mitte: var(--k-nacht);        /* Mitte der Akteurslandkarte */
+  --mitte-text: #FFFFFF;
+  --mitte-aktiv: #004951;         /* Petrol */
+  --ring-aktiv: #E8F2F3;
 
   --schrift-titel: "Inter Display", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --schrift-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -26,11 +30,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --grund: var(--k-nacht); --text: #FFFFFF; --text-leise: #9DB6BA; --linie: #2A4A51; --akzent: var(--k-eis);
+    --mitte: var(--k-eis); --mitte-text: var(--k-nacht); --mitte-aktiv: #FFFFFF; --ring-aktiv: #0B3A43;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --grund: var(--k-nacht); --text: #FFFFFF; --text-leise: #9DB6BA; --linie: #2A4A51; --akzent: var(--k-eis);
+    --mitte: var(--k-eis); --mitte-text: var(--k-nacht); --mitte-aktiv: #FFFFFF; --ring-aktiv: #0B3A43;
   color-scheme: dark;
 }
 
@@ -57,9 +63,16 @@ button { font: inherit; color: inherit; }
 /* Kopf */
 .leiste, .kopf-innen, .rahmen, .fuss-innen { max-width: var(--rahmen); margin-inline: auto; padding-inline: 1.5rem; }
 .leiste { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 1.25rem; font-size: .85rem; }
-.leiste-name { display: inline-flex; align-items: center; gap: .75rem; font-weight: 600; }
+.leiste-name { display: inline-flex; align-items: center; gap: 1rem; font-weight: 600; }
 .leiste-rechts { display: inline-flex; align-items: center; gap: 1.5rem; color: var(--text-leise); }
-.logo { height: 1.5rem; width: auto; }
+.logo { height: 1.1rem; width: auto; }
+.logo-dunkel { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logo-hell { display: none; }
+  :root:not([data-theme="light"]) .logo-dunkel { display: inline; }
+}
+:root[data-theme="dark"] .logo-hell { display: none; }
+:root[data-theme="dark"] .logo-dunkel { display: inline; }
 .thema { background: transparent; border: 1px solid var(--linie); border-radius: 999px; padding: .2rem .8rem; cursor: pointer; color: var(--text); }
 .thema:hover { border-color: var(--text); }
 .kopf-innen { padding-block: 8rem 7rem; }
@@ -119,6 +132,14 @@ main { min-width: 0; max-width: var(--spalte); }
 .status-entwurf::before { background: var(--hinweis); border-color: var(--hinweis); }
 .status-fertig::before { background: var(--akzent); border-color: var(--akzent); }
 
+/* Projekt über dem Titel */
+.projekt { margin-bottom: 1.75rem; font-size: .95rem; line-height: 1.45; color: var(--text-leise); max-width: 46ch; }
+
+/* Bild mit Legende */
+.bild { margin: .75rem 0 .5rem; }
+.bild img { display: block; width: 100%; height: auto; max-width: 100%; }
+.bild figcaption { margin-top: .6rem; font-size: .78rem; line-height: 1.45; color: var(--text-leise); }
+
 /* Quellenangabe unter einem Absatz */
 .quelle { display: block; margin-top: .35rem; font-size: .78rem; line-height: 1.45; color: var(--text-leise); }
 
@@ -137,6 +158,7 @@ main { min-width: 0; max-width: var(--spalte); }
 .kachel-einheit { font-family: var(--schrift-text); font-weight: 400; font-size: 1rem; letter-spacing: 0; color: var(--text-leise); margin-left: .35rem; }
 .kachel-text { font-size: .88rem; line-height: 1.45; }
 .kachel-quelle { font-size: .72rem; line-height: 1.4; color: var(--text-leise); }
+.kachel-quelle a { color: inherit; }
 .kachel .status { justify-self: start; }
 
 /* Tabellen */
@@ -164,4 +186,128 @@ main { min-width: 0; max-width: var(--spalte); }
   .kapitel-kopf .status { grid-column: 2; grid-row: 2; justify-self: start; }
   .kapitel-kopf .zeichen { grid-column: 3; grid-row: 1; width: 1.1rem; height: 1.1rem; }
   .kapitel-inhalt { padding: 0 0 3rem 0; }
+}
+
+/* Akteurslandkarte: Ringe von innen nach aussen, Porträt rechts daneben */
+.landkarte { margin: 1rem 0; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+.landkarte-grafik { display: block; width: 100%; height: auto; max-width: 30rem; }
+.landkarte-grafik .ring { cursor: pointer; outline: none; }
+.landkarte-grafik .ring circle { fill: var(--grund); stroke: var(--linie); stroke-width: 1; transition: fill .15s; }
+.landkarte-grafik .ring text { font-family: var(--schrift-text); font-size: 15px; font-weight: 600; fill: var(--text); pointer-events: none; }
+.landkarte-grafik .ring:hover circle, .landkarte-grafik .ring.aktiv circle { fill: var(--ring-aktiv); }
+.landkarte-grafik .ring:focus-visible circle { stroke: var(--akzent); stroke-width: 2; }
+.landkarte-grafik .ring-0 circle { fill: var(--mitte); stroke: none; }
+.landkarte-grafik .ring-0 text { fill: var(--mitte-text); }
+.landkarte-grafik .ring-0:hover circle, .landkarte-grafik .ring-0.aktiv circle { fill: var(--mitte-aktiv); }
+.portraits { display: grid; align-content: start; padding-top: .25rem; }
+.landkarte-hinweis { font-size: .9rem; color: var(--text-leise); max-width: 24ch; }
+.portrait { border-top: 1px solid var(--text); padding-top: 1rem; display: grid; gap: .6rem; font-size: .95rem; line-height: 1.5; }
+.portrait + .portrait { margin-top: 2rem; }
+.kapitel-inhalt .portrait h4 { font-size: 1.5rem; letter-spacing: -0.02em; margin: 0; }
+.portrait ul { padding-left: 1.1rem; display: grid; gap: .35rem; }
+.portrait p strong { font-weight: 600; }
+/* Mit JavaScript ist immer nur ein Porträt sichtbar; ohne stehen alle untereinander */
+.landkarte:not(.interaktiv) .landkarte-hinweis { display: none; }
+.landkarte.interaktiv .portrait { display: none; margin-top: 0; }
+.landkarte.interaktiv .portrait.sichtbar { display: grid; animation: auftauchen .18s ease-out; }
+@keyframes auftauchen { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .landkarte.interaktiv .portrait.sichtbar { animation: none; }
+  .landkarte-grafik .ring circle { transition: none; }
+}
+@media (max-width: 48rem) {
+  .landkarte { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .landkarte-grafik { max-width: 26rem; margin-inline: auto; }
+  .portraits { min-height: 0; }
+}
+
+/* Grössenvergleich: Quadrate, Fläche entspricht der IT-Leistung, Klick öffnet den Reiter */
+.kapitel-inhalt .vergleich { list-style: none; padding: 0; margin: 1.25rem 0 0; display: flex; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem 2.75rem; --seite-max: min(13rem, 38vw); }
+.kapitel-inhalt .vergleich li { max-width: none; }
+.vergleich-element { display: grid; justify-items: start; gap: .5rem; color: var(--text); text-decoration: none; }
+.vergleich-flaeche { display: block; width: calc(var(--seite-max) * var(--anteil)); aspect-ratio: 1; max-width: 100%; background: var(--ring-aktiv); border: 1px solid var(--text); transition: background-color .15s, border-color .15s; }
+.vergleich-name { font-family: var(--schrift-titel); font-weight: 700; font-size: 1.05rem; line-height: 1.1; }
+.vergleich-wert { margin-top: -.3rem; font-size: .85rem; color: var(--text-leise); font-variant-numeric: tabular-nums; }
+.vergleich-element:hover .vergleich-flaeche, .vergleich-element.aktiv .vergleich-flaeche { background: var(--mitte); border-color: var(--mitte); }
+.vergleich-element:focus-visible { outline-offset: 6px; }
+.kapitel-inhalt .legende { font-size: .82rem; line-height: 1.45; color: var(--text-leise); }
+
+/* Reiter: immer nur ein Abschnitt sichtbar; ohne JavaScript stehen alle untereinander */
+.reiter { scroll-margin-top: 1.5rem; }
+.reiter-leiste { display: flex; gap: 2.25rem; margin-top: .75rem; border-bottom: 1px solid var(--linie); overflow-x: auto; scrollbar-width: none; }
+.reiter-leiste::-webkit-scrollbar { display: none; }
+.reiter-leiste [role="tab"] { background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: .6rem 0; cursor: pointer; font-family: var(--schrift-titel); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; color: var(--text-leise); white-space: nowrap; }
+.reiter-leiste [role="tab"]:hover { color: var(--text); }
+.reiter-leiste [role="tab"][aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
+.reiter-leiste [role="tab"]:focus-visible { outline-offset: 2px; }
+.reiter-feld { display: grid; gap: 1.1rem; padding-top: 1.5rem; }
+.reiter:not(.interaktiv) .reiter-leiste { display: none; }
+.reiter.interaktiv .reiter-feld { display: none; }
+.reiter.interaktiv .reiter-feld.aktiv { display: grid; animation: auftauchen .18s ease-out; }
+.reiter.interaktiv .reiter-titel { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reiter.interaktiv .reiter-feld.aktiv { animation: none; }
+  .vergleich-flaeche { transition: none; }
+}
+@media (max-width: 40rem) {
+  .reiter-leiste { gap: 1.5rem; }
+  .reiter-leiste [role="tab"] { font-size: 1.1rem; }
+  .kapitel-inhalt .vergleich { gap: 1rem 1.5rem; }
+}
+
+/* Standortfaktoren: Symbolleiste. Beim Darüberfahren wird ein Symbol gross, die anderen verblassen.
+   Darunter steht das Feld zum gewählten Faktor. Ohne JavaScript stehen alle Felder untereinander. */
+.faktoren { margin: .75rem 0 .5rem; display: grid; gap: 1.25rem; }
+.kapitel-inhalt .faktoren-leiste { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(5.4rem, 1fr)); gap: 1.25rem .5rem; }
+.faktor { width: 100%; background: none; border: 0; padding: .5rem 0 .25rem; cursor: pointer; display: grid; justify-items: center; gap: .65rem; color: var(--text); transition: transform .22s ease, opacity .22s ease; }
+.faktor-symbol { display: grid; place-items: center; width: 4.25rem; height: 4.25rem; border-radius: 50%; border: 1px solid var(--text); background: var(--grund); transition: background-color .15s, color .15s; }
+.faktor-symbol svg { width: 1.85rem; height: 1.85rem; stroke-width: 1.5; }
+.faktor.zentral .faktor-symbol { background: var(--text); color: var(--grund); }
+.faktor-name { font-size: .85rem; font-weight: 600; line-height: 1.25; text-align: center; border-bottom: 1.5px solid transparent; padding-bottom: .15rem; }
+.faktor[aria-selected="true"] .faktor-name { border-bottom-color: currentColor; }
+.faktor:focus-visible { outline-offset: 2px; }
+.faktoren.fokus .faktor { transform: scale(.86); opacity: .35; }
+.faktoren.fokus .faktor[aria-selected="true"] { transform: scale(1.16); opacity: 1; }
+.faktoren-legende { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem; font-size: .8rem; line-height: 1.45; color: var(--text-leise); }
+.faktoren-legende .eintrag { display: inline-flex; align-items: center; gap: .45rem; }
+.faktoren-legende .punkt { width: .7rem; height: .7rem; border-radius: 50%; border: 1px solid var(--text); }
+.faktoren-legende .punkt.voll { background: var(--text); }
+.faktoren-hinweis { flex-basis: 100%; }
+.faktoren:not(.interaktiv) .faktoren-hinweis { display: none; }
+.faktoren-felder { display: grid; }
+.faktor-feld { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 1.25rem 2.25rem; align-content: start; border-top: 1px solid var(--text); padding-top: 1.25rem; }
+.faktor-feld + .faktor-feld { margin-top: 2.5rem; }
+.faktor-feld.ohne-bild { grid-template-columns: minmax(0, 1fr); }
+.faktor-text { display: grid; gap: .75rem; align-content: start; }
+.kapitel-inhalt .faktor-feld h4 { margin: 0; font-size: 1.6rem; letter-spacing: -0.02em; line-height: 1.15; display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .75rem; }
+.marke-zentral { display: inline-flex; align-items: center; gap: .4rem; padding: .15rem .6rem; border: 1px solid var(--linie); border-radius: 999px; font-family: var(--schrift-text); font-size: .68rem; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--text-leise); }
+.marke-zentral::before { content: ""; width: .42rem; height: .42rem; border-radius: 50%; background: var(--text); }
+.faktor-text p { font-size: .98rem; line-height: 1.55; }
+.faktor-text .faktor-tool { font-size: .85rem; color: var(--text-leise); border-left: 2px solid var(--akzent); padding-left: .75rem; }
+.faktor-tool span { display: block; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text); }
+.faktor-feld .bild { margin: 0; }
+.faktor-feld .bild .grafik-platzhalter { margin: 0; min-height: 13rem; }
+.faktor-feld .kacheln { grid-column: 1 / -1; margin: 0; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+.faktor-feld .kachel-wert { font-size: 2.3rem; }
+/* Mit JavaScript: alle Felder liegen übereinander, die Höhe bleibt beim Wechsel gleich */
+.faktoren.interaktiv .faktoren-felder > .faktor-feld { grid-area: 1 / 1; margin-top: 0; visibility: hidden; opacity: 0; }
+.faktoren.interaktiv .faktoren-felder > .faktor-feld.aktiv { visibility: visible; opacity: 1; animation: aufploppen .24s ease-out; }
+@keyframes aufploppen { from { opacity: 0; transform: translateY(8px) scale(.985); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .faktor, .faktor-symbol { transition: opacity .15s; }
+  .faktoren.fokus .faktor, .faktoren.fokus .faktor[aria-selected="true"] { transform: none; }
+  .faktoren.interaktiv .faktoren-felder > .faktor-feld.aktiv { animation: none; }
+}
+@media (max-width: 48rem) {
+  /* Erste Reihe: die vier zentralen Faktoren, zweite Reihe: die übrigen drei */
+  .kapitel-inhalt .faktoren-leiste { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem .25rem; }
+  .faktoren-leiste > li { grid-column: span 4; }
+  .faktoren-leiste > li.ist-zentral { grid-column: span 3; }
+  .faktor-name { font-size: .78rem; }
+  .faktor-feld { grid-template-columns: minmax(0, 1fr); }
+  /* Auf schmalen Bildschirmen nur das gewählte Feld zeigen, ohne Platz für die anderen */
+  .faktoren.interaktiv .faktoren-felder > .faktor-feld { display: none; }
+  .faktoren.interaktiv .faktoren-felder > .faktor-feld.aktiv { display: grid; }
+  .faktor-symbol { width: 3.6rem; height: 3.6rem; }
+  .faktor-symbol svg { width: 1.6rem; height: 1.6rem; }
 }

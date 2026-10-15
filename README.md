@@ -1,5 +1,5 @@
 # rechenzenter-erkenntnisse
-Website zu Rechenzentren. Sie fasst die wichtigsten Erkenntnisse aus der Studie «Versorgungsfunktionen» zusammen. Erarbeitet von KEEAS für den Verein Metropolitanraum Zürich. Themen: Akteure, Typen, Standortfaktoren, Vergleich Europa und Welt, Trends und künftiger Bedarf.
+Website zu Rechenzentren in der Schweiz. Sie fasst die Erkenntnisse aus dem Projekt «Zukunft Arbeitsplatzgebiete – Versorgungsfunktionen ressourcen-effizient und konfliktfrei integrieren» zusammen. Erarbeitet von KEEAS für den Verein Metropolitanraum Zürich. Themen: Akteure, Typen, Standortfaktoren, Vergleich Europa und Welt, Trends und künftiger Bedarf.
 
 ## Aufbau
 
@@ -21,6 +21,12 @@ Website zu Rechenzentren. Sie fasst die wichtigsten Erkenntnisse aus der Studie 
   - `> Grafik: Beschreibung` zeigt einen Platzhalter für eine Grafik.
   - `> Offen: Aufgabe` zeigt eine Notiz. Sie erscheint nur im Entwurf.
   - `> Kennzahlen` zeigt die Kacheln aus `daten/kennzahlen.csv`.
+  - `> Kennzahlen: Hyperscale` zeigt nur die Zeilen mit dieser `gruppe` in `daten/kennzahlen.csv`.
+  - `> Grössenvergleich: Hyperscale, Kollokation, Edge` zeigt Quadrate nach IT-Leistung (erste Zeile mit Einheit MW je genannter `gruppe`). Ein Klick öffnet den passenden Reiter.
+  - `> Reiter: Anfang` … `> Reiter: Ende`: Jeder Abschnitt `## Name` dazwischen wird ein Reiter.
+  - `> Akteurslandkarte` zeigt die Ringkarte mit den Porträts aus `daten/akteure.md`.
+  - `> Standortfaktoren` zeigt die Symbolleiste aus `daten/standortfaktoren.md`. Beim Darüberfahren wird ein Symbol gross, darunter erscheinen Text, Bild und Kennzahlen (Gruppe = Name des Faktors in `daten/kennzahlen.csv`). Symbole liegen in `vorlage/symbole/` (Lucide, Lizenz ISC).
+- Bild mit Legende: `![Beschreibung](bilder/datei.jpg "Legende")`. Grosse Bilder verkleinert in `bilder/web/` ablegen.
 - Quelle am Ende eines Absatzes: `(Quelle: …)`. Sie erscheint als kleine Zeile darunter.
 
 ## Seite bauen

@@ -1,5 +1,17 @@
-﻿wert;einheit;text;quelle;status
-2.1;TWh;Stromverbrauch der Rechenzentren und Serverräume in der Schweiz, 2019 (Schätzung);TEP Energy und HSLU 2021, zitiert in eicher+pauli 2023;entwurf
-3.6;%;Anteil der Rechenzentren am Stromverbrauch der Schweiz, 2019;TEP Energy und HSLU 2021, zitiert in eicher+pauli 2023;entwurf
-Rang 2;;Dichte an Rechenzentren pro Kopf in Europa, nach den Niederlanden (2020);eicher+pauli 2023;entwurf
-?;MW;Installierte Leistung der Rechenzentren in der Schweiz heute;offen;offen
+﻿wert;einheit;text;quelle;link;status;gruppe
+2.1;TWh;Stromverbrauch der Rechenzentren in der Schweiz, 2024;EnergieSchweiz 2026;https://pubdb.bfe.admin.ch/de/publication/download/12607;fertig;
+3.6;%;Anteil am gesamten Stromverbrauch der Schweiz, 2024;EnergieSchweiz 2026;https://pubdb.bfe.admin.ch/de/publication/download/12607;fertig;
+40;MW;IT-Last im Endausbau, verteilt auf 3 Gebäude;Vantage Data Centers;https://vantage-dc.com/data-center-locations/emea/zurich-i-switzerland/;fertig;Hyperscale
+37'000;m²;Fläche des Campus auf einem Grundstück von rund 3 ha;Vantage Data Centers;https://vantage-dc.com/data-center-locations/emea/zurich-i-switzerland/;fertig;Hyperscale
+17.5;MW;IT-Leistung: USV-Anlagen für die Server mit zusammen 17.5 MVA (35 × 500 kVA);Equinix, technische Spezifikation ZH5;https://cf.cloudscene.com/FacilityPDF/59/59.pdf;fertig;Kollokation
+7'378;m²;Colocation-Fläche in einem dreigeschossigen Gebäude;Equinix;https://www.equinix.com/data-centers/europe-colocation/switzerland-colocation/zurich-data-centers/zh5;fertig;Kollokation
+2.4;MW;Leistung der Server-Racks;Swiss IT Magazine 2023;https://www.itmagazine.ch/artikel/79810/Ein_Datacenter_im_Zeichen_der_Nachhaltigkeit.html;fertig;Edge
+1'600;m²;IT-Fläche (über 1'600 m²) für rund 600 Server-Racks;ewl 2022;https://www.ewl-luzern.ch/medien/medienmitteilungen/ewl-eroeffnet-oekologisches-rechenzentrum-in-luzern;fertig;Edge
+10–150;MW;Leistung eines grossen Rechenzentrums;Gespräche mit Betreibern, 2026;;fertig;Strom
+×2;;Das Übertragungsnetz hätte Kapazität für eine Verdoppelung, aber nicht überall;Gespräch mit nationalem Akteur, 2026;;fertig;Strom
+4;Richtungen;Aus so vielen Richtungen ist ein grosser Campus ans Glasfasernetz angeschlossen;Gespräch mit nationalem Akteur, 2026;;fertig;Glasfaser
+200;Firmen;mit über einer Milliarde Franken Umsatz gibt es in der Schweiz;Gespräch mit internationalem Akteur, 2026;;fertig;Kundennähe
+90;%;der Energie eines Rechenzentrums wird zu Wärme;Gespräch mit nationalem Akteur, 2026;;fertig;Abwärme
+24–35;°C;Temperatur der Abwärme. Ein Fernwärmenetz braucht rund 70 °C;Gespräche mit Betreibern, 2026;;fertig;Abwärme
+20'000;m²;Grundstück für ein kleines Rechenzentrum;Gespräche mit Betreibern, 2026;;fertig;Grundstück
+70'000–80'000;m²;Grundstück für ein grösseres Rechenzentrum;Gespräche mit Betreibern, 2026;;fertig;Grundstück
